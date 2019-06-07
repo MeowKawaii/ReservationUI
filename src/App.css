@@ -1,0 +1,17 @@
+.App {
+  /* background-color: rgb(248, 241, 198) */
+}
+
+.SearchField{
+  
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
