@@ -1,11 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -13,53 +9,46 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
+    padding: 10,
+    marginTop:9
   },
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 100,
+    width:150
   },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+  select:{
+    textAlign:"center"
+  }
 }));
 
-function SimpleSelect() {
+function SimpleSelect({handleRoomChange}) {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    age: '',
-    name: 'hai',
+    title: "room",
   });
-
-  const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
-//   React.useEffect(() => {
-//     setLabelWidth(inputLabel.current.offsetWidth);
-//   }, []);
 
   function handleChange(event) {
     setValues(oldValues => ({
-      ...oldValues,
-      [event.target.name]: event.target.value,
+      title: event.target.value,
     }));
+
+    handleRoomChange(event.target.value);
   }
 
   return (
     <form className={classes.root} autoComplete="off">
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="age-simple">select</InputLabel>
         <Select
-          value={values.age}
+          className={classes.select}
+          value={values.title}
           onChange={handleChange}
           inputProps={{
-            name: 'age',
-            id: 'age-simple',
+            name: 'title',
           }}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={1}>Room</MenuItem>
-          <MenuItem value={2}>Name</MenuItem>
+          <MenuItem value={"room"}>Room</MenuItem>
+          <MenuItem value={"name"}>Name</MenuItem>
         </Select>
       </FormControl>
     </form>

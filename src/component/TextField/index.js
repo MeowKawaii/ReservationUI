@@ -1,41 +1,41 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import { textAlign } from '@material-ui/system';
 
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    flexGrow:1,
+    minWidth:120
   },
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
-  },
-  dense: {
-    marginTop: 19,
-  },
+    flexGrow:1,
+  }
 }));
 
-function TextFields() {
+function TextFields({handleTextFieldChange}) {
   const classes = useStyles();
   const [values, setValues] = React.useState({
-    name: 'Cat in the Hat',
-    age: '',
-    multiline: 'Controlled',
+    name: "",
   });
 
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
+  const handleChange = name=>event => {
+    setValues({name: event.target.value});
+    handleTextFieldChange(event.target.value);
   };
 
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <TextField
-        id="standard-bare"
+        id="standard-textField"
         className={classes.textField}
-        defaultValue=""
+        value={values.name}
         margin="normal"
+        onChange={handleChange('name')}
       />
     </form>
   );

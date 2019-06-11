@@ -1,32 +1,40 @@
-import React from 'react';
-import SimpleSelect from './component/SelectField';
-import TextField from './component/TextField';
+import React, { Component } from 'react';
+
 import SimpleAppBar from './component/AppBar'
-import './App.css';
-import SearchButton from './component/Button';
+import SearchField from './containers/SearchField'
+import TableList from './containers/BookingList'
 
+import Grid from '@material-ui/core/Grid';
 
+class App extends Component {
 
-function App() {
-  return (
+  constructor(props){
+    super(props);
+    this.state = {
+      data:[]
+    }
 
-    <Grid>
-      
-    </Grid>
-    <div className="App">
-      <SimpleAppBar/>
+    this.setDatas = this.setDatas.bind(this);
+  }
+
+  setDatas(datas){
+    this.setState({data:datas});
+  }
+
+  render(){
+    return (
       <Grid
         container
-        direction="row"
-        justify="flex-start"
-        alignItems="flex-start"
+        direction="coloum"
+        justify="center"
+        alignItems="center"
       >
-        <SimpleSelect/>
-        <TextField/>
-        <SearchButton/> 
+        <SimpleAppBar/>
+        <SearchField setDatas={this.setDatas}/>
+        <TableList datas={this.state.data}/>
       </Grid>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
