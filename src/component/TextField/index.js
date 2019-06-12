@@ -23,8 +23,8 @@ function TextFields({handleTextFieldChange}) {
     name: "",
   });
 
-  const handleChange = name=>event => {
-    setValues({name: event.target.value});
+  const handleChange = data=>event => {
+    setValues({data: event.target.value});
     handleTextFieldChange(event.target.value);
   };
 

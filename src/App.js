@@ -31,7 +31,7 @@ class App extends Component {
       >
         <SimpleAppBar/>
         <SearchField setDatas={this.setDatas}/>
-        <TableList datas={this.state.data}/>
+        <TableList datas={this.state.data} setDatas={this.setDatas}/>
       </Grid>
     );
   }
