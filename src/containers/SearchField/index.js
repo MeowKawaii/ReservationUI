@@ -5,8 +5,6 @@ import TextField from '../../component/TextField';
 import Button from '../../component/Button';
 import Grid from '@material-ui/core/Grid';
 import './styles.css'
-import MyModal from '../../component/Modal';
-import MyFormDialog from '../../component/FormDialog' 
 
 class SearchField extends Component {
 
@@ -15,15 +13,12 @@ class SearchField extends Component {
     this.state = {
       data:[],
       title:'',
-      text:"",
-      open:false,
+      text:""
     }
 
     this.handleRoomChange = this.handleRoomChange.bind(this);
     this.handleTextFieldChange=this.handleTextFieldChange.bind(this);
-    this.handleOpenModel=this.handleOpenModel.bind(this);
     this.searchBooking = this.searchBooking.bind(this);
-    this.bookingRoom = this.bookingRoom.bind(this);
   }
 
   handleTextFieldChange(texts){
@@ -32,10 +27,6 @@ class SearchField extends Component {
   handleRoomChange(room) {
       this.setState({title:room});
   }
-  
-  handleOpenModel(openModal) {
-    this.setState({open:openModal});
-  }    
 
   searchBooking(){
     if(this.state.text==""){
@@ -60,18 +51,6 @@ class SearchField extends Component {
     }
   }
 
-  bookingRoom(data){
-    fetch(`http://localhost:8080/bookings/`,{
-      method:'POST',
-      body:JSON.stringify(data),
-      headers:{
-        'Content-Type':'application/json'
-      }
-    })
-    .then((response)=>{response.json();this.setState({open:false});});
-  }
-  
-
   render(){
     return (
       <Fragment>
@@ -85,11 +64,11 @@ class SearchField extends Component {
               <SimpleSelect handleRoomChange={this.handleRoomChange}/>
               <TextField handleTextFieldChange={this.handleTextFieldChange}/>
               <Button handle={this.searchBooking} text={"Search"} variant={"outlined"}/> 
-              <Button handle={this.handleOpenModel} text={"Booking"} variant={"contained"}></Button>
+              <Button handle={this.searchBooking} text={"Booking"} variant={"contained"}></Button>
             </div>
         </Grid>
-        <MyFormDialog openModal={this.state.open} handleCloseModal={this.handleOpenModel} handleRight={this.bookingRoom}/>
       </Fragment>
+      
     );
   }
 }
