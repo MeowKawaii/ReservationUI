@@ -6,6 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import MyButton from "../../component/Button";
+import { makeStyles } from "@material-ui/core/styles";
 
 export default function AlertDialog({
   textTitle,
@@ -19,6 +20,15 @@ export default function AlertDialog({
   leftBtnText,
   rightBtnText,
 }) {
+
+  const useStyles = makeStyles(theme => ({
+    title: {
+      minWidth: 400,
+    },
+  }));
+
+  const classes = useStyles();
+
   return (
     <Dialog
       open={open}
@@ -26,7 +36,7 @@ export default function AlertDialog({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{textTitle}</DialogTitle>
+      <DialogTitle id="alert-dialog-title" className={classes.title}>{textTitle}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           {textContent}

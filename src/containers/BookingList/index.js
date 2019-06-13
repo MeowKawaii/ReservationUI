@@ -14,7 +14,7 @@ import FormDialog from "../../component/FormDialog";
 
 const comfirmTextTitle = "Are you sure?";
 const comfirmTextContent = "Are you sure you want to cancel this booking?";
-const deleteTextTitle = "Cancel Booking eieieieieieieiei";
+const deleteTextTitle = "Cancel Booking";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,7 +43,7 @@ export default function TableList({ datas, setDatas }) {
   const [dataDialog, setDataDialog] = React.useState({
     id: "",
     room: "",
-    name: "SSS",
+    name: "",
     start: "",
     end: "",
   });
@@ -56,7 +56,17 @@ export default function TableList({ datas, setDatas }) {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(res => res.json);
+    }).then(res => {
+      res.json();
+      handleOpenModel(false);
+      fetch(`http://localhost:8080/bookings/`, {
+        method: "GET",
+      })
+        .then(response => response.json())
+        .then(data => {
+          setDatas(data);
+        });
+    });
   };
 
   const deleteBooking = id => {
@@ -66,6 +76,13 @@ export default function TableList({ datas, setDatas }) {
       .then(response => response.json())
       .then(data => {
         setDeleteTextContent(data.status);
+        fetch(`http://localhost:8080/bookings/`, {
+          method: "GET",
+        })
+          .then(response => response.json())
+          .then(data => {
+            setDatas(data);
+          });
       });
   };
 
@@ -103,8 +120,8 @@ export default function TableList({ datas, setDatas }) {
               <TableRow key={data.id}>
                 <TableCell align="center">{data.room}</TableCell>
                 <TableCell align="center">{data.name}</TableCell>
-                <TableCell align="center">{data.start}</TableCell>
-                <TableCell align="center">{data.end}</TableCell>
+                <TableCell align="center">{new Date(data.start).toLocaleDateString("th-TH")}, {new Date(data.start).toLocaleTimeString("th-TH")}</TableCell>
+                <TableCell align="center">{new Date(data.end).toLocaleDateString("th-TH")}, {new Date(data.end).toLocaleTimeString("th-TH")}</TableCell>
                 <TableCell
                   className={classes.icon}
                   align="right"
@@ -159,7 +176,7 @@ export default function TableList({ datas, setDatas }) {
         rightBtnFunc={() => {
           showDeleteDialog(false);
         }}
-        rightBtn={true}
+        rightBtn={false}
       />
       <FormDialog
         disabled={true}
