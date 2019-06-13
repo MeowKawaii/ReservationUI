@@ -9,8 +9,8 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { Typography } from "@material-ui/core";
 import { KeyboardDateTimePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
-
-import DatejsUtils from "@date-io/dayjs";
+import thLocale from "date-fns/locale/th";
+import DatejsUtils from "@date-io/date-fns";
 export default function FormDialog({
   disabled = false,
   openModal,
@@ -67,6 +67,7 @@ export default function FormDialog({
           <Grid container item xs={12} spacing={2}>
             <Grid item xs={6}>
               <TextField
+                required
                 onChange={handleChange("room")}
                 value={values.room}
                 defaultValue={defaultRoom}
@@ -81,6 +82,7 @@ export default function FormDialog({
             </Grid>
             <Grid item xs={6}>
               <TextField
+                required
                 onChange={handleChange("name")}
                 value={values.name}
                 defaultValue={defaultName}
@@ -118,15 +120,17 @@ export default function FormDialog({
               type="text"
               fullWidth
             />
-            <MuiPickersUtilsProvider utils={DatejsUtils}>
+            <MuiPickersUtilsProvider utils={DatejsUtils} locale={thLocale}>
               <KeyboardDateTimePicker
+                ampm={false}
                 value={selectedDate}
-                // defaultValue={defaultEndTime}
+                defaultValue={defaultEndTime}
                 onChange={dataChange}
-                label="Keyboard with error handler"
-                onError={console.log}
                 minDate={new Date()}
-                format="DD/MM/YYYY hh:mm"
+                format="dd/MM/yyyy HH:mm"
+                disablePast={true}
+                allowKeyboardControl={false}
+                minDateMessage
               />
             </MuiPickersUtilsProvider>
           </Grid>

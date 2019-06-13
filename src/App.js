@@ -28,27 +28,6 @@ class App extends Component {
     this.setState({ type: type, search: search });
   }
 
-  // componentDidUpdate() {
-  //   if (this.state.search === "") {
-  //     fetch(`http://localhost:8080/bookings/`, {
-  //       method: "GET",
-  //     })
-  //       .then(response => response.json())
-  //       .then(data => {
-  //         this.setDatas({ data });
-  //       });
-  //   }
-    // else{
-    //     fetch(`http://localhost:8080/bookings/searching?type=${this.state.type}&result=${this.state.serach}`, {
-    //   method:'GET'
-    // })
-    //   .then((response)=>response.json())
-    //   .then((data)=>{
-    //     this.setDatas({data:data});
-    //   });
-    // }
-  // }
-
   render() {
     return (
       <Grid container direction="coloum" justify="center" alignItems="center">
