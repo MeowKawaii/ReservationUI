@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -14,11 +14,11 @@ export default function FormDialog({
   handleCloseModal,
   titleDialog = "Booking",
   textBtnRight = "Booking",
-  defaultID="",
-  defaultRoom = "",
-  defaultName = "eiei",
-  defaultStartTime = "",
-  defaultEndTime = "",
+  defaultID="a",
+  defaultRoom = "a",
+  defaultName = "a",
+  defaultStartTime = "a",
+  defaultEndTime = "a",
   handleRight,
 }) {
   const [values, setValues] = React.useState({
@@ -33,7 +33,11 @@ export default function FormDialog({
     setValues({  ...values, [data]: event.target.value });
   };
 
-
+  useEffect(() => { setValues({id:defaultID,
+    room: defaultRoom,
+    name: defaultName,
+    start: defaultStartTime,
+    end: defaultEndTime}) });
 
   return (
     <Dialog open={openModal} aria-labelledby="form-dialog-title">
@@ -53,6 +57,7 @@ export default function FormDialog({
                 fullWidth
                 disabled={disabled}
               />
+              {values.name}{defaultName}
             </Grid>
             <Grid item xs={6}>
               <TextField
